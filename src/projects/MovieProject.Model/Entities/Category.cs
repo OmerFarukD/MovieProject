@@ -1,13 +1,15 @@
-﻿namespace MovieProject.Model.Entities;
+﻿using Core.DataAccess.Entities;
 
-public sealed class Category
+namespace MovieProject.Model.Entities;
+
+public sealed class Category : Entity<int>
 {
-    public int Id { get; set; }
 
-    public DateTime CreatedTime { get; set; }
-
-    public DateTime? UpdatedTime { get; set; }
-
+    public Category()
+    {
+        Name = string.Empty;
+        Movies = new HashSet<Movie>();
+    }
     public string Name { get; set; }
 
     public ICollection<Movie> Movies { get; set; }

@@ -1,14 +1,15 @@
-﻿namespace MovieProject.Model.Entities;
+﻿using Core.DataAccess.Entities;
 
-public sealed class MovieArtist
+namespace MovieProject.Model.Entities;
+
+public sealed class MovieArtist: Entity<long>
 {
-    public long Id { get; set; }
 
-    public DateTime CreatedTime { get; set; }
-
-    public DateTime? UpdatedTime { get; set; }
-
-
+    public MovieArtist()
+    {
+        Artist = new Artist();
+        Movie = new Movie();
+    }
     public long ArtistId { get; set; }
 
     public Artist Artist { get; set; }
