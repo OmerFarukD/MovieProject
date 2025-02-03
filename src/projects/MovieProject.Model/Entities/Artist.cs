@@ -10,7 +10,6 @@ public sealed class Artist: Entity<long>
         Surname = string.Empty;
         ImageUrl = string.Empty;
         MovieArtists = new HashSet<MovieArtist>();
-    
     }
 
     public string Name { get; set; }

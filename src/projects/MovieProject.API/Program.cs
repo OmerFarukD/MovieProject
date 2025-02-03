@@ -1,8 +1,23 @@
 using MovieProject.DataAccess.Contexts;
+using MovieProject.DataAccess.Repositories.Abstracts;
+using MovieProject.DataAccess.Repositories.Concretes;
+using MovieProject.Service.Abstracts;
+using MovieProject.Service.Concretes;
+using MovieProject.Service.Mappers;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+// Dependency Injection Lifecycle (Yaþam Döngüsü)
+// AddScopped() : Uygulama boyunca 1 tane nesne üretir. Nesnenin ömrü ise istek cevaba dönene kadar.
+// AddSingleton() : Uygulama boyunca 1 tane nesne üretir.
+// AddTransient(): Uygulamada her istek için ayrý bir nesne oluþturur.
+
+builder.Services.AddScoped<ICategoryService,CategoryService>();
+builder.Services.AddScoped<ICategoryRepository,CategoryRepository>();
+builder.Services.AddScoped<CategoryMapper>();
+
+//builder.Services.AddScoped<CategoryService>();
 
 builder.Services.AddControllers();
 

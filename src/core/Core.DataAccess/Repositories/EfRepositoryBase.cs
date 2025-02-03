@@ -1,7 +1,6 @@
 ﻿
 using Core.DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
-
 namespace Core.DataAccess.Repositories;
 
 public abstract class EfRepositoryBase<TEntity, TId, TContext> : IRepository<TEntity, TId>
