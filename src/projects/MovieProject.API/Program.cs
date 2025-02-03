@@ -3,7 +3,8 @@ using MovieProject.DataAccess.Repositories.Abstracts;
 using MovieProject.DataAccess.Repositories.Concretes;
 using MovieProject.Service.Abstracts;
 using MovieProject.Service.Concretes;
-using MovieProject.Service.Mappers;
+using MovieProject.Service.Mappers.Categories;
+using MovieProject.Service.Mappers.Profiles;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +16,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<ICategoryService,CategoryService>();
 builder.Services.AddScoped<ICategoryRepository,CategoryRepository>();
-builder.Services.AddScoped<CategoryMapper>();
+builder.Services.AddScoped<ICategoryMapper,CategoryAutoMapper>();
+builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
 
 //builder.Services.AddScoped<CategoryService>();
 

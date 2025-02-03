@@ -4,7 +4,7 @@ using MovieProject.DataAccess.Repositories.Concretes;
 using MovieProject.Model.Dtos.Categories;
 using MovieProject.Model.Entities;
 using MovieProject.Service.Abstracts;
-using MovieProject.Service.Mappers;
+using MovieProject.Service.Mappers.Categories;
 
 namespace MovieProject.Service.Concretes;
 
@@ -12,9 +12,9 @@ public sealed class CategoryService : ICategoryService
 {
 
     private readonly ICategoryRepository _categoryRepository;
-    private readonly CategoryMapper _categoryMapper;
+    private readonly ICategoryMapper _categoryMapper;
 
-    public CategoryService(ICategoryRepository categoryRepository, CategoryMapper categoryMapper)
+    public CategoryService(ICategoryRepository categoryRepository, ICategoryMapper categoryMapper)
     {
         _categoryRepository = categoryRepository;
         _categoryMapper = categoryMapper;
