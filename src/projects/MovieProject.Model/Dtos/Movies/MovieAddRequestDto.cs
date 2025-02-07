@@ -11,7 +11,7 @@ public sealed record MovieAddRequestDto
 
     public DateTime PublishDate { get; init; }
 
-    public IFormFile? Image { get; init; }
+    public IFormFile? Image { get; init;}
 
     public int CategoryId { get; init; }
 

@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using MovieProject.DataAccess.Contexts;
 using MovieProject.DataAccess.Repositories.Abstracts;
 using MovieProject.DataAccess.Repositories.Concretes;
@@ -23,7 +24,10 @@ builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
 
 builder.Services.AddControllers();
 
-builder.Services.AddDbContext<BaseDbContext>();
+builder.Services.AddDbContext<BaseDbContext>(opt =>
+{
+    opt.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection"));
+});
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

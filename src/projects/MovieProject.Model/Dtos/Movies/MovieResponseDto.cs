@@ -13,7 +13,7 @@ public sealed record MovieResponseDto
 
     public DateTime PublishDate { get; init; }
 
-    public IFormFile? Image { get; init; }
+    public string ImageUrl { get; init; }
 
     public string? CategoryName { get; init; }
 

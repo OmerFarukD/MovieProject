@@ -5,10 +5,8 @@ namespace MovieProject.DataAccess.Contexts;
 
 public sealed class BaseDbContext : DbContext
 {
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseSqlServer(@"server=(localdb)\MSSQLLocalDB; Database=Movie_Project_db; Trusted_Connection=true");
-    }
+
+
 
     public DbSet<Artist> Artists { get; set; }
     public DbSet<Category> Categories { get; set; }
