@@ -41,11 +41,13 @@ public sealed class MovieService : IMovieService
 
     public List<MovieResponseDto> GetAll()
     {
-        var movies = _movieRepository.Query()
-            .Include(x => x.Category)
-            .Include(x => x.Director)
-            .ToList();
-            
+        //var movies = _movieRepository.Query()
+        //    .Include(x => x.Category)
+        //    .Include(x => x.Director)
+        //    .ToList();
+
+
+        var movies = _movieRepository.GetAll();
         var response = _mapper.Map<List<MovieResponseDto>>(movies);
         return response;
     }

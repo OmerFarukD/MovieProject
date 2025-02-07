@@ -60,6 +60,6 @@ public abstract class EfRepositoryBase<TEntity, TId, TContext> : IRepository<TEn
 
     public IQueryable<TEntity> Query()
     {
-       ret Context.Set<TEntity>();
+       return Context.Set<TEntity>();
     }
 }
