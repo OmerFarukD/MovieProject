@@ -31,9 +31,18 @@ public abstract class EfRepositoryBase<TEntity, TId, TContext> : IRepository<TEn
         return entity;
     }
 
-    public List<TEntity> GetAll()
+    public List<TEntity> GetAll(bool include =true)
     {
-        return Context.Set<TEntity>().ToList();
+        // SELECT [] FROM TENTITY WHERE [] ORDER BY []
+
+        IQueryable<TEntity> query = Context.Set<TEntity>();
+
+        if(include is false)
+        {
+            query = query.IgnoreAutoIncludes();
+        }
+
+        return query.ToList();
     }
 
     public TEntity? GetById(TId id)
@@ -47,5 +56,10 @@ public abstract class EfRepositoryBase<TEntity, TId, TContext> : IRepository<TEn
         Context.Set<TEntity>().Update(entity);
         Context.SaveChanges();
         return entity;
+    }
+
+    public IQueryable<TEntity> Query()
+    {
+       ret Context.Set<TEntity>();
     }
 }

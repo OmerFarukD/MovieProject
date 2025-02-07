@@ -11,5 +11,7 @@ public interface IRepository<TEntity,TId> where TEntity: Entity<TId>
 
     TEntity? GetById(TId id);
 
-    List<TEntity> GetAll();
+    List<TEntity> GetAll(bool include = true);
+
+    IQueryable<TEntity> Query();
 }

@@ -1,9 +1,10 @@
-﻿using MovieProject.Model.Dtos.Movies;
+﻿using Microsoft.AspNetCore.Http;
+using MovieProject.Model.Dtos.Movies;
 namespace MovieProject.Service.Abstracts;
 
 public interface IMovieService
 {
-    void Add(MovieAddRequestDto dto);
+    string Add(MovieAddRequestDto dto);
     
     void Update(MovieUpdateRequestDto dto);
 

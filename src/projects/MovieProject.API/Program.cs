@@ -4,6 +4,7 @@ using MovieProject.DataAccess.Repositories.Abstracts;
 using MovieProject.DataAccess.Repositories.Concretes;
 using MovieProject.Service.Abstracts;
 using MovieProject.Service.Concretes;
+using MovieProject.Service.Helpers;
 using MovieProject.Service.Mappers.Categories;
 using MovieProject.Service.Mappers.Profiles;
 
@@ -19,6 +20,10 @@ builder.Services.AddScoped<ICategoryService,CategoryService>();
 builder.Services.AddScoped<ICategoryRepository,CategoryRepository>();
 builder.Services.AddScoped<ICategoryMapper,CategoryAutoMapper>();
 builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
+builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
+builder.Services.AddScoped<IMovieService,MovieService>();
+builder.Services.AddScoped<IMovieRepository,MovieRepository>();
+builder.Services.AddScoped<ICloudinaryHelper,CloudinaryHelper>();
 
 //builder.Services.AddScoped<CategoryService>();
 

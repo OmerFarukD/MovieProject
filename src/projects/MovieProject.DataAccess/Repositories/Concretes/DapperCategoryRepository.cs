@@ -15,12 +15,17 @@ public sealed class DapperCategoryRepository : ICategoryRepository
         throw new NotImplementedException();
     }
 
-    public List<Category> GetAll()
+    public List<Category> GetAll(bool include = true)
     {
         throw new NotImplementedException();
     }
 
     public Category? GetById(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public IQueryable<Category> Query()
     {
         throw new NotImplementedException();
     }
