@@ -3,6 +3,7 @@ using MovieProject.DataAccess.Contexts;
 using MovieProject.DataAccess.Repositories.Abstracts;
 using MovieProject.DataAccess.Repositories.Concretes;
 using MovieProject.Service.Abstracts;
+using MovieProject.Service.BusinessRules.Categories;
 using MovieProject.Service.Concretes;
 using MovieProject.Service.Helpers;
 using MovieProject.Service.Mappers.Categories;
@@ -24,6 +25,7 @@ builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection(
 builder.Services.AddScoped<IMovieService,MovieService>();
 builder.Services.AddScoped<IMovieRepository,MovieRepository>();
 builder.Services.AddScoped<ICloudinaryHelper,CloudinaryHelper>();
+builder.Services.AddScoped<CategoryBusinessRules>();
 
 //builder.Services.AddScoped<CategoryService>();
 

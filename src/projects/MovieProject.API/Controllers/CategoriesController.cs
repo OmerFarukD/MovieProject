@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Core.CrossCuttingConcerns.Exceptions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MovieProject.Model.Dtos.Categories;
 using MovieProject.Service.Abstracts;
@@ -24,8 +25,15 @@ public class CategoriesController : ControllerBase
     [HttpPost("add")]
     public IActionResult Add(CategoryAddRequestDto dto)
     {
-        _categoryService.Add(dto);
-        return Ok("Kategori başarıyla eklendi.");
+        try
+        {
+            _categoryService.Add(dto);
+            return Ok("Kategori başarıyla eklendi.");
+        }catch(BusinessException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+
     }
 
 
@@ -39,22 +47,46 @@ public class CategoriesController : ControllerBase
     [HttpGet("getbyid")]
     public IActionResult GetById(int id)
     {
-        var response = _categoryService.GetById(id);
-        return Ok(response);
+        try
+        {
+            var response = _categoryService.GetById(id);
+            return Ok(response);
+        }catch(NotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
+
+  
     }
 
     [HttpPut("update")]
     public IActionResult Update(CategoryUpdateRequestDto dto)
     {
-        _categoryService.Update(dto);
-        return Ok("Kategori güncellendi.");
+        try
+        {
+
+            _categoryService.Update(dto);
+            return Ok("Kategori güncellendi.");
+        }catch(NotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
+
     }
 
     [HttpDelete("delete")]
     public IActionResult Delete(int id)
     {
-        _categoryService.Delete(id);
-        return Ok("Kategori silindi.");
+
+        try
+        {
+            _categoryService.Delete(id);
+            return Ok("Kategori silindi.");
+        }
+        catch (NotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
     }
 
 }

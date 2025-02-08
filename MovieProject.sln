@@ -9,17 +9,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{D86E8426-3
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "projects", "projects", "{288648E4-BE0F-48CB-A83E-FA99C6265F70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieProject.Model", "src\projects\MovieProject.Model\MovieProject.Model.csproj", "{188B3B45-31B2-434C-965D-A648B7E86A0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieProject.Model", "src\projects\MovieProject.Model\MovieProject.Model.csproj", "{188B3B45-31B2-434C-965D-A648B7E86A0D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieProject.DataAccess", "src\projects\MovieProject.DataAccess\MovieProject.DataAccess.csproj", "{A380B802-A401-4B77-A14A-D855673A9064}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieProject.DataAccess", "src\projects\MovieProject.DataAccess\MovieProject.DataAccess.csproj", "{A380B802-A401-4B77-A14A-D855673A9064}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieProject.Service", "src\projects\MovieProject.Service\MovieProject.Service.csproj", "{711B78A3-44BA-4DC3-8B08-5833E536ED74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieProject.Service", "src\projects\MovieProject.Service\MovieProject.Service.csproj", "{711B78A3-44BA-4DC3-8B08-5833E536ED74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieProject.API", "src\projects\MovieProject.API\MovieProject.API.csproj", "{6A15F0BA-5E21-48AD-8164-3DE5C3928880}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieProject.API", "src\projects\MovieProject.API\MovieProject.API.csproj", "{6A15F0BA-5E21-48AD-8164-3DE5C3928880}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.DataAccess", "src\core\Core.DataAccess\Core.DataAccess.csproj", "{3D586F29-F282-4720-B61D-7E2ABED18219}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.DataAccess", "src\core\Core.DataAccess\Core.DataAccess.csproj", "{3D586F29-F282-4720-B61D-7E2ABED18219}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Denemeler", "Denemeler\Denemeler.csproj", "{907F2A03-0677-447E-A4F3-D3EEBB40370C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Denemeler", "Denemeler\Denemeler.csproj", "{907F2A03-0677-447E-A4F3-D3EEBB40370C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.CrossCuttingConcerns", "src\core\Core.CrossCuttingConcernsi\Core.CrossCuttingConcerns.csproj", "{48CE28AE-16BC-46B3-A76F-C1DF45F6BCB1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{907F2A03-0677-447E-A4F3-D3EEBB40370C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{907F2A03-0677-447E-A4F3-D3EEBB40370C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{907F2A03-0677-447E-A4F3-D3EEBB40370C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48CE28AE-16BC-46B3-A76F-C1DF45F6BCB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48CE28AE-16BC-46B3-A76F-C1DF45F6BCB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48CE28AE-16BC-46B3-A76F-C1DF45F6BCB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48CE28AE-16BC-46B3-A76F-C1DF45F6BCB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -63,6 +69,7 @@ Global
 		{711B78A3-44BA-4DC3-8B08-5833E536ED74} = {288648E4-BE0F-48CB-A83E-FA99C6265F70}
 		{6A15F0BA-5E21-48AD-8164-3DE5C3928880} = {288648E4-BE0F-48CB-A83E-FA99C6265F70}
 		{3D586F29-F282-4720-B61D-7E2ABED18219} = {D86E8426-32D7-49F8-A854-DC948E9B3BEA}
+		{48CE28AE-16BC-46B3-A76F-C1DF45F6BCB1} = {D86E8426-32D7-49F8-A854-DC948E9B3BEA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DBB0C0EC-802D-4A69-822C-0C2A87F12613}
