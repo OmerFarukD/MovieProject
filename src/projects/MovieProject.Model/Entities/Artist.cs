@@ -16,7 +16,7 @@ public sealed class Artist: Entity<long>
     public string Surname { get; set; }
     public string ImageUrl { get; set; }
 
-    public DateTime BirthDate { get; set; }
+    public DateTime? BirthDate { get; set; }
 
     public ICollection<MovieArtist> MovieArtists { get; set; }
 }

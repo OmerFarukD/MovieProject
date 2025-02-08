@@ -19,7 +19,7 @@ public abstract class EfRepositoryBase<TEntity, TId, TContext> : IRepository<TEn
     {
 
         entity.CreatedTime = DateTime.Now;
-        Context.Set<TEntity>().Add(entity);
+        Context.Add(entity);
         Context.SaveChanges();
         return entity;
     }
