@@ -12,8 +12,8 @@ using MovieProject.DataAccess.Contexts;
 namespace MovieProject.DataAccess.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    [Migration("20250207192516_config")]
-    partial class config
+    [Migration("20250208140928_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,15 +29,17 @@ namespace MovieProject.DataAccess.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("bigint")
+                        .HasColumnName("ArtistId");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<DateTime>("BirthDate")
+                    b.Property<DateTime?>("BirthDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("CreatedTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Created");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
@@ -45,7 +47,8 @@ namespace MovieProject.DataAccess.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ArtistName");
 
                     b.Property<string>("Surname")
                         .IsRequired()
@@ -56,37 +59,55 @@ namespace MovieProject.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Artists");
+                    b.ToTable("Artists", (string)null);
                 });
 
             modelBuilder.Entity("MovieProject.Model.Entities.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("CategoryId");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Created");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("CategoryName");
 
                     b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories_tb", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedTime = new DateTime(2025, 2, 8, 14, 9, 28, 72, DateTimeKind.Utc).AddTicks(5311),
+                            Name = "Korku"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedTime = new DateTime(2025, 2, 8, 14, 9, 28, 72, DateTimeKind.Utc).AddTicks(5314),
+                            Name = "Dram"
+                        });
                 });
 
             modelBuilder.Entity("MovieProject.Model.Entities.Director", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("bigint")
+                        .HasColumnName("DirectorId");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
@@ -94,7 +115,8 @@ namespace MovieProject.DataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("CreatedTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Created");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
@@ -113,20 +135,33 @@ namespace MovieProject.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Directors");
+                    b.ToTable("Directors", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            BirthDay = new DateTime(1959, 2, 8, 16, 39, 25, 0, DateTimeKind.Unspecified),
+                            CreatedTime = new DateTime(2025, 2, 8, 14, 9, 28, 72, DateTimeKind.Utc).AddTicks(8353),
+                            ImageUrl = "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT-r2zKe07oWLgn-Sy993RYt7xe27X4_P_KP82X2Mlrs-EfZlr6_rbSnOkm_QIhRu3Zy7jukIkHAoYTexSo4OJU2g",
+                            Name = "Nuri Bilge",
+                            Surname = "Ceylan"
+                        });
                 });
 
             modelBuilder.Entity("MovieProject.Model.Entities.Movie", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("MovieId");
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Created");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -161,14 +196,15 @@ namespace MovieProject.DataAccess.Migrations
 
                     b.HasIndex("DirectorId");
 
-                    b.ToTable("Movies");
+                    b.ToTable("Movies", (string)null);
                 });
 
             modelBuilder.Entity("MovieProject.Model.Entities.MovieArtist", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("bigint")
+                        .HasColumnName("MovieArtistId");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
@@ -176,7 +212,8 @@ namespace MovieProject.DataAccess.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("CreatedTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Created");
 
                     b.Property<Guid>("MovieId")
                         .HasColumnType("uniqueidentifier");
@@ -190,7 +227,7 @@ namespace MovieProject.DataAccess.Migrations
 
                     b.HasIndex("MovieId");
 
-                    b.ToTable("MovieArtists");
+                    b.ToTable("MovieArtists", (string)null);
                 });
 
             modelBuilder.Entity("MovieProject.Model.Entities.Movie", b =>

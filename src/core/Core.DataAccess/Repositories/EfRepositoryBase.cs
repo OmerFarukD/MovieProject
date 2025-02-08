@@ -19,14 +19,14 @@ public abstract class EfRepositoryBase<TEntity, TId, TContext> : IRepository<TEn
     {
 
         entity.CreatedTime = DateTime.Now;
-        Context.Add(entity);
+        Context.Entry(entity).State = EntityState.Added;
         Context.SaveChanges();
         return entity;
     }
 
     public TEntity Delete(TEntity entity)
     {
-        Context.Set<TEntity>().Remove(entity);
+        Context.Entry(entity).State = EntityState.Deleted;
         Context.SaveChanges();
         return entity;
     }
@@ -53,7 +53,7 @@ public abstract class EfRepositoryBase<TEntity, TId, TContext> : IRepository<TEn
     public TEntity Update(TEntity entity)
     {
         entity.UpdatedTime = DateTime.Now;
-        Context.Set<TEntity>().Update(entity);
+        Context.Entry(entity).State = EntityState.Modified;
         Context.SaveChanges();
         return entity;
     }
