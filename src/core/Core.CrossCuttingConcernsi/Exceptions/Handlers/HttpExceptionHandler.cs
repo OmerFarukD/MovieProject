@@ -13,7 +13,8 @@ namespace Core.CrossCuttingConcerns.Exceptions.Handlers;
 
 public sealed class HttpExceptionHandler : ExceptionHandler
 {
-    public HttpResponse Response {get;set;}
+
+    public HttpResponse Response { get; set; }
 
     protected override Task HandleException(NotFoundException notFoundException)
     {
@@ -37,5 +38,4 @@ public sealed class HttpExceptionHandler : ExceptionHandler
         string details = new ServerErrorProblemDetails().AsJson();
         return Response.WriteAsync(details);
     }
-
 }
