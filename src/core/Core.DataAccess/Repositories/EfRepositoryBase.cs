@@ -3,9 +3,10 @@ using Core.DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Linq.Expressions;
+
 namespace Core.DataAccess.Repositories;
 
-public abstract class EfRepositoryBase<TEntity, TId, TContext> : IRepository<TEntity, TId>
+public abstract class EfRepositoryBase<TEntity, TId, TContext> : IRepository<TEntity, TId>, IAsyncRepository<TEntity,TId>
     where TEntity: Entity<TId>
     where TContext: DbContext
 
@@ -108,5 +109,85 @@ public abstract class EfRepositoryBase<TEntity, TId, TContext> : IRepository<TEn
         }
 
         return query.Any();
+    }
+
+    public async Task<TEntity> AddAsync(TEntity entity, CancellationToken cancellationToken = default)
+    {
+        entity.CreatedTime = DateTime.Now;
+        Context.Entry(entity).State = EntityState.Added;
+        await Context.SaveChangesAsync(cancellationToken);
+        return entity;
+    }
+
+    public async Task<TEntity> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default)
+    {
+        entity.UpdatedTime = DateTime.Now;
+        Context.Entry(entity).State = EntityState.Modified;
+         await Context.SaveChangesAsync(cancellationToken);
+        return entity;
+    }
+
+    public async Task<TEntity> DeleteAsync(TEntity entity, CancellationToken cancellationToken = default)
+    {
+        Context.Entry(entity).State = EntityState.Deleted;
+        await Context.SaveChangesAsync(cancellationToken);
+        return entity;
+    }
+
+    public async Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>>? filter = null, bool include = true, bool enableTracking = true, CancellationToken cancellationToken = default)
+    {
+        IQueryable<TEntity> query = Context.Set<TEntity>();
+
+        if (filter is not null)
+        {
+            query = query.Where(filter);
+        }
+
+        if (enableTracking is false)
+        {
+            query = query.AsNoTracking();
+        }
+
+
+        if (include is false)
+        {
+            query = query.IgnoreAutoIncludes();
+        }
+
+        return await query.ToListAsync(cancellationToken);
+    }
+
+    public async Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> filter, bool include = true, bool enableTracking = true, CancellationToken cancellationToken = default)
+    {
+        IQueryable<TEntity> query = Query();
+
+        if (include is false)
+        {
+            query = query.IgnoreAutoIncludes();
+        }
+
+        if (enableTracking is false)
+        {
+            query = query.AsNoTracking();
+        }
+
+        return await query.FirstOrDefaultAsync(filter);
+    }
+
+    public async Task<bool> AnyAsync(Expression<Func<TEntity, bool>>? filter = null, bool enableTracking = true, CancellationToken cancellationToken = default)
+    {
+        IQueryable<TEntity> query = Query();
+        if (enableTracking is false)
+        {
+            query = query.AsNoTracking();
+        }
+
+
+        if (filter is not null)
+        {
+            return await query.AnyAsync(filter,cancellationToken);
+        }
+
+        return await query.AnyAsync(cancellationToken);
     }
 }

@@ -37,7 +37,4 @@ public class ExceptionMiddleware
         _exceptionHandler.Response = response;
         return _exceptionHandler.HandleExceptionAsync(exception);
     }
-
-
-
 }
