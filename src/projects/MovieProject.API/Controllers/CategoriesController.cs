@@ -1,10 +1,12 @@
-﻿using Core.CrossCuttingConcerns.Exceptions;
+﻿using Core.CrossCuttingConcerns.Exceptions.Types;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MovieProject.Model.Dtos.Categories;
 using MovieProject.Service.Abstracts;
 using MovieProject.Service.Concretes;
 
+
+// RFC 7807
 namespace MovieProject.API.Controllers;
 
 [Route("api/[controller]")]

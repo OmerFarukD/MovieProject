@@ -1,4 +1,4 @@
-﻿using Core.CrossCuttingConcerns.Exceptions;
+﻿using Core.CrossCuttingConcerns.Exceptions.Types;
 using MovieProject.DataAccess.Repositories.Abstracts;
 using MovieProject.Service.Constants.Categories;
 

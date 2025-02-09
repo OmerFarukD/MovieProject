@@ -1,4 +1,5 @@
 ﻿
+using Denemeler;
 using MovieProject.Model.Dtos.Categories;
 using MovieProject.Model.Entities;
 
@@ -9,24 +10,29 @@ Deneme d2 = new Deneme() {Id = 1, Name = "asd"};
 
 DenemeRecord d3 = new DenemeRecord { Id = 1, Name = "asd" };
 DenemeRecord d4 = new DenemeRecord { Id = 1};
-Console.WriteLine(d4.Name);
+//Console.WriteLine(d4.Name);
 
 
 
 Deneme2 deneme2 = new Deneme2(1,"lkasjlkfjalkasjfldsf");
 Deneme3 deneme3 = new Deneme3(1,"ASDFG");
 
-Console.WriteLine(deneme2);
 
-//Console.WriteLine(d1==d2);
+string metin = "blo";
+
+Console.WriteLine(metin.AddText("selamlar ben Buse"));
+
+//Console.WriteLine(deneme2);
+
+////Console.WriteLine(d1==d2);
 
 
 
-//Console.WriteLine(d3==d4);
+////Console.WriteLine(d3==d4);
 
 
-//Console.WriteLine(d1);
-Console.WriteLine(d4);
+////Console.WriteLine(d1);
+//Console.WriteLine(d4);
 
 
 
