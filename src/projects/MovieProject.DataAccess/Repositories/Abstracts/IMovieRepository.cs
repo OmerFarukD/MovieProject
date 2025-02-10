@@ -5,5 +5,4 @@ namespace MovieProject.DataAccess.Repositories.Abstracts;
 
 public interface IMovieRepository : IRepository<Movie, Guid>, IAsyncRepository<Movie,Guid>
 {
-
 }

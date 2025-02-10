@@ -4,21 +4,21 @@ namespace MovieProject.Service.Abstracts;
 
 public interface IMovieService
 {
-    string Add(MovieAddRequestDto dto);
+    Task<string> AddAsync(MovieAddRequestDto dto,CancellationToken cancellationToken=default);
     
-    void Update(MovieUpdateRequestDto dto);
+    Task UpdateAsync(MovieUpdateRequestDto dto, CancellationToken cancellationToken = default);
 
-    List<MovieResponseDto> GetAll();
+    Task<List<MovieResponseDto>> GetAllAsync(CancellationToken cancellationToken = default);
 
-    MovieResponseDto? GetById(Guid id);
+    Task<MovieResponseDto?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
 
-    void Delete(Guid id);
+    Task DeleteAsync(Guid id, CancellationToken cancellationToken = default);
 
-    List<MovieResponseDto> GetAllByCategoryId(int id);
+    Task<List<MovieResponseDto>> GetAllByCategoryIdAsync(int id, CancellationToken cancellationToken = default);
 
-    List<MovieResponseDto> GetAllByDirectorId(long id);
+    Task<List<MovieResponseDto>> GetAllByDirectorIdAsync(long id, CancellationToken cancellationToken = default);
 
-    List<MovieResponseDto> GetAllByImdbRange(double min, double max);
+    Task<List<MovieResponseDto>> GetAllByImdbRangeAsync(double min, double max, CancellationToken cancellationToken = default);
 
-    List<MovieResponseDto> GetAllByIsActive(bool active);
+    Task<List<MovieResponseDto>> GetAllByIsActiveAsync(bool active, CancellationToken cancellationToken = default);
 }

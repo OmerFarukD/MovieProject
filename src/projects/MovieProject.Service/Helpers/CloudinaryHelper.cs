@@ -48,4 +48,28 @@ public sealed class CloudinaryHelper : ICloudinaryHelper
         return string.Empty;
 
     }
+
+    public async Task<string> UploadImageAsync(IFormFile formFile, string imageDirectory)
+    {
+
+        var imageUploadResult = new ImageUploadResult();
+
+        if (formFile.Length > 0)
+        {
+            using var stream = formFile.OpenReadStream();
+
+            var uploadParams = new ImageUploadParams
+            {
+                File = new FileDescription(formFile.Name, stream),
+                Folder = imageDirectory
+            };
+
+            imageUploadResult =
+              await  _cloudinary.UploadAsync(uploadParams);
+
+            string url = _cloudinary.Api.UrlImgUp.BuildUrl(imageUploadResult.PublicId);
+            return url;
+        }
+        return string.Empty;
+    }
 }
