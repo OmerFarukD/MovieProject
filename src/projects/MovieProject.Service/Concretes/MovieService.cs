@@ -34,6 +34,8 @@ public sealed class MovieService : IMovieService
 
         movie.ImageUrl = url;
 
+
+
         await _movieRepository.AddAsync(movie,cancellationToken);
 
 

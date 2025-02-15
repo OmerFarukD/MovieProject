@@ -18,6 +18,10 @@ namespace MovieProject.DataAccess
             services.AddScoped<IDirectorRepository, DirectorRepository>();
             services.AddScoped<IMovieArtistRepository,MovieArtistRepository>();
 
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IRoleRepository,RoleRepository>();
+            services.AddScoped<IUserRoleRepository,UserRoleRepository>();
+
             services.AddDbContext<BaseDbContext>(opt =>
             {
                 opt.UseSqlServer(configuration.GetConnectionString("SqlConnection"));
