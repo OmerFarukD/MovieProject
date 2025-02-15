@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\core\Core.DataAccess\Core.DataAccess.csproj" />
+    <ProjectReference Include="..\..\core\Core.Security\Core.Security.csproj" />
     <ProjectReference Include="..\MovieProject.Model\MovieProject.Model.csproj" />
   </ItemGroup>
 

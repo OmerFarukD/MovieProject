@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\core\Core.DataAccess\Core.DataAccess.csproj" />
+    <ProjectReference Include="..\..\core\Core.Security\Core.Security.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Core.Security.Entities;
+using Microsoft.EntityFrameworkCore;
 using MovieProject.Model.Entities;
 using System.Reflection;
 
@@ -22,5 +23,9 @@ public sealed class BaseDbContext : DbContext
     public DbSet<Director> Directors { get; set; }
     public DbSet<MovieArtist> MovieArtists { get; set; }
     public DbSet<Movie> Movies { get; set; }
+
+    public DbSet<User> Users { get; set; }
+    public DbSet<Role> Roles { get; set; }
+    public DbSet<UserRole> UserRoles { get; set; }
 
 }
