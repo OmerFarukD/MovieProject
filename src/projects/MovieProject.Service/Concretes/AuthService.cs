@@ -26,15 +26,16 @@ public sealed class AuthService : IAuthService
         // todo: Email kontrolü yap
         await _userBusinessRules.SearchByEmailAsync(requestDto.Email);
 
-        var user = await _userService.GetByEmailAsync(requestDto.Email);
+        var user = await _userService.GetByEmailAsync(requestDto.Email,cancellationToken);
+
+
         var verifyPassword = HashingHelper
-            .VerifyPasswordHash(requestDto.Password,user.PasswordHash,user.PasswordSalt);
+            .VerifyPasswordHash(requestDto.Password, user.PasswordHash, user.PasswordSalt);
 
         if (!verifyPassword)
             throw new BusinessException(UserMessages.PasswordIsWrong);
 
         return "Giriş Başarılı.";
-
 
         // Parola eşleşiyor mu ? 
 
@@ -48,6 +49,7 @@ public sealed class AuthService : IAuthService
 
         user.PasswordHash = hashResult.passwordHash;
         user.PasswordSalt = hashResult.passwordSalt;
+        user.Status = true;
 
         await _userService.AddAsync(user);
 

@@ -4,6 +4,7 @@ using MovieProject.DataAccess.Repositories.Abstracts;
 using MovieProject.Model.Dtos.Users;
 using MovieProject.Service.Abstracts;
 using MovieProject.Service.BusinessRules.Users;
+using System.Linq.Expressions;
 using System.Threading;
 
 namespace MovieProject.Service.Concretes;
@@ -48,11 +49,17 @@ public sealed class UserService(
         return response;
     }
 
+    public async Task<User> GetAsync(Expression<Func<User, bool>> filter, bool include = true, bool enableTracking = true, CancellationToken cancellationToken = default)
+    {
+        var user = await userRepository.GetAsync(filter,include,enableTracking,cancellationToken);
+
+        return user;
+    }
+
     public async Task<UserResponseDto> GetByEmailAsync(string email, CancellationToken cancellationToken = default)
     {
-        await businessRules.EmailMustBeUniqueAsync(email);
-
-        var user = await userRepository.GetAsync(filter: x=>x.Email==email,enableTracking:false,cancellationToken:cancellationToken);
+        
+        var user = await userRepository.GetAsync(filter: x=>x.Email==email,enableTracking:false,include:false, cancellationToken:cancellationToken);
 
         var response = mapper.Map<UserResponseDto>(user);
 
@@ -74,7 +81,7 @@ public sealed class UserService(
     {
         await businessRules.UsernameMustBeUniqueAsync(username);
 
-        var user = await userRepository.GetAsync(filter: x => x.Username == username, enableTracking: false, cancellationToken: cancellationToken);
+        var user = await userRepository.GetAsync(filter: x => x.Username == username, enableTracking: false,cancellationToken:cancellationToken);
 
         var response = mapper.Map<UserResponseDto>(user);
 

@@ -171,7 +171,7 @@ public abstract class EfRepositoryBase<TEntity, TId, TContext> : IRepository<TEn
             query = query.AsNoTracking();
         }
 
-        return await query.FirstOrDefaultAsync(filter);
+        return await query.FirstOrDefaultAsync(filter,cancellationToken);
     }
 
     public async Task<bool> AnyAsync(Expression<Func<TEntity, bool>>? filter = null, bool enableTracking = true, CancellationToken cancellationToken = default)
