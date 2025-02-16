@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\core\Core.Security\Core.Security.csproj" />
     <ProjectReference Include="..\MovieProject.DataAccess\MovieProject.DataAccess.csproj" />
     <ProjectReference Include="..\MovieProject.Service\MovieProject.Service.csproj" />
   </ItemGroup>

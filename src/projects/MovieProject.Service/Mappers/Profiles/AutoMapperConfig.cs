@@ -28,7 +28,7 @@ public sealed class AutoMapperConfig : Profile
         CreateMap<ArtistUpdateRequestDto, Artist>();
 
 
-        CreateMap<User, UserResponseDto>();
+        CreateMap<User, UserResponseDto>().ReverseMap();
         CreateMap<RegisterRequestDto, User>();
     }
 }

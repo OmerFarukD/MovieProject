@@ -1,4 +1,5 @@
 using Core.CrossCuttingConcerns.Exceptions;
+using Core.Security;
 using Microsoft.EntityFrameworkCore;
 using MovieProject.DataAccess;
 using MovieProject.DataAccess.Contexts;
@@ -26,7 +27,7 @@ builder.Services.AddHttpContextAccessor();
 
 
 builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
-
+builder.Services.AddSecurityDependencies();
 builder.Services.AddDataAccessDependencies(builder.Configuration);
 builder.Services.AddServiceDependencies();
 

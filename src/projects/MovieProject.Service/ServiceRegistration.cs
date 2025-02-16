@@ -34,6 +34,7 @@ public static class ServiceRegistration
 
         services.AddScoped<IUserService,UserService>();
         services.AddScoped<IAuthService, AuthService >();
+        services.AddScoped<IJwtService,JwtService>();
         services.AddScoped<UserBusinessRules>();
 
         return services;
