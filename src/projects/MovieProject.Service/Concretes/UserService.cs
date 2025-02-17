@@ -70,7 +70,7 @@ public sealed class UserService(
     {
         await businessRules.UserIsPresent(id);
 
-        var user = await userRepository.GetAsync(filter: x => x.Id == id, enableTracking: false);
+        var user = await userRepository.GetAsync(filter: x => x.Id == id, include:false, enableTracking: false);
 
         var response = mapper.Map<UserResponseDto>(user);
 
@@ -101,5 +101,12 @@ public sealed class UserService(
         var response = mapper.Map<UserResponseDto>(updatedUser);
 
         return response;
+    }
+
+    public async Task<User> UpdateAsync(User user, CancellationToken cancellationToken = default)
+    {
+       User updated = await userRepository.UpdateAsync(user,cancellationToken);
+
+        return updated;
     }
 }

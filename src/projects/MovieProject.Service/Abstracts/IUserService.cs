@@ -20,5 +20,8 @@ public interface IUserService
     Task<UserResponseDto> GetByIdAsync(int id);
 
 
+    Task<User> UpdateAsync(User user, CancellationToken cancellationToken=default);
+
+
 
 }

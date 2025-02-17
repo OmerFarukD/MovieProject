@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MovieProject.Model.Dtos.Movies;
 using MovieProject.Service.Abstracts;
 
@@ -17,6 +18,7 @@ public class MoviesController : ControllerBase
 
 
     [HttpPost("Add")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Add(MovieAddRequestDto dto)
     {
         var result = await _movieService.AddAsync(dto);
@@ -48,6 +50,7 @@ public class MoviesController : ControllerBase
     }
 
     [HttpPut("update")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Update(MovieUpdateRequestDto dto)
     {
         await _movieService.UpdateAsync(dto);
@@ -55,6 +58,7 @@ public class MoviesController : ControllerBase
     }
 
     [HttpDelete("delete")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(Guid id)
     {
         await _movieService.DeleteAsync(id);

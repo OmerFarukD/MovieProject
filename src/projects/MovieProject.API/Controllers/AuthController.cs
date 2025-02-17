@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using MovieProject.Model.Dtos.Users;
 using MovieProject.Service.Abstracts;
+using System.Security.Claims;
 
 namespace MovieProject.API.Controllers;
 
@@ -31,5 +32,26 @@ public sealed class AuthController : ControllerBase
     {
         var result = await _authService.LoginAsync(dto);
         return Ok(result);
+    }
+
+    [HttpPut("update")]
+    public async Task<IActionResult> Update(UserUpdateRequestDto dto)
+    {
+        var userId =Convert.ToInt32(HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
+
+        var result = await _authService.UpdateUserAsync(userId,dto);
+
+        return Ok(result);
+    }
+
+
+    [HttpGet("userinfo")]
+    public IActionResult GetCurrentUser()
+    {
+        var userId = HttpContext.User.Claims.FirstOrDefault(x=> x.Type==ClaimTypes.NameIdentifier).Value;
+        var claims = HttpContext.User.Claims.Where(x => x.Type == ClaimTypes.Role).ToList();
+
+        var roleNames = claims.Select(x => x.Value).ToList();
+        return Ok(new { UserId = userId, Roles = roleNames });
     }
 }

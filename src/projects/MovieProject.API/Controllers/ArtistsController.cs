@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MovieProject.Model.Dtos.Artists;
 using MovieProject.Service.Abstracts;
@@ -11,13 +12,16 @@ public class ArtistsController(IArtistService artistService) : ControllerBase
 {
 
     [HttpPost("add")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Add(ArtistAddRequestDto dto) =>Ok(await artistService.AddAsync(dto));
 
 
     [HttpPut("update")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Update(ArtistUpdateRequestDto dto) =>Ok(await artistService.UpdateAsync(dto));
 
     [HttpDelete("delete")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(long id) =>Ok(await artistService.DeleteAsync(id));
 
 

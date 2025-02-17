@@ -1,4 +1,5 @@
 ﻿using Core.CrossCuttingConcerns.Exceptions.Types;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MovieProject.Model.Dtos.Categories;
@@ -25,7 +26,8 @@ public class CategoriesController : ControllerBase
     //public ICategoryService CategoryService { get; set; }
 
     [HttpPost("add")]
-    public IActionResult Add(CategoryAddRequestDto dto)
+    [Authorize(Roles = "Admin")]
+    public IActionResult Add([FromBody] CategoryAddRequestDto dto)
     { 
             _categoryService.Add(dto);
             return Ok("Kategori başarıyla eklendi.");
@@ -41,6 +43,7 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpGet("getbyid")]
+    
     public IActionResult GetById(int id)
     {
    
@@ -50,6 +53,7 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpPut("update")]
+    [Authorize(Roles = "Admin")]
     public IActionResult Update(CategoryUpdateRequestDto dto)
     {
 
@@ -59,9 +63,9 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpDelete("delete")]
+    [Authorize(Roles = "Admin")]
     public IActionResult Delete(int id)
     {
-
             _categoryService.Delete(id);
             return Ok("Kategori silindi.");
     }

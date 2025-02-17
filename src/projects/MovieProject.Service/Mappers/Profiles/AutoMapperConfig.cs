@@ -30,5 +30,6 @@ public sealed class AutoMapperConfig : Profile
 
         CreateMap<User, UserResponseDto>().ReverseMap();
         CreateMap<RegisterRequestDto, User>();
+        CreateMap<UserUpdateRequestDto, User>();
     }
 }
