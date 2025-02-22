@@ -1,3 +1,4 @@
+using Core.CrossCuttingConcerns;
 using Core.CrossCuttingConcerns.Exceptions;
 using Core.Security;
 using Core.Security.Encryption;
@@ -33,6 +34,14 @@ builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection(
 builder.Services.AddSecurityDependencies();
 builder.Services.AddDataAccessDependencies(builder.Configuration);
 builder.Services.AddServiceDependencies();
+builder.Services.AddRedisDistributedCacheDependency();
+
+builder.Services.AddStackExchangeRedisCache(opt =>
+{
+    opt.Configuration = "localhost:6379";
+    opt.InstanceName = "MovieProjectCache_";
+});
+
 
 //builder.Services.AddScoped<CategoryService>();
 builder.Services.AddControllers();

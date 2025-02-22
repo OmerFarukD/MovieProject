@@ -21,8 +21,9 @@ public class MoviesController : ControllerBase
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Add(MovieAddRequestDto dto)
     {
-        var result = await _movieService.AddAsync(dto);
 
+
+        var result = await _movieService.AddAsync(dto);
         return Ok(result);
     }
 

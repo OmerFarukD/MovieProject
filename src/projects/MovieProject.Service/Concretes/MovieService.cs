@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Core.CrossCuttingConcerns.Cache.Redis;
 using MovieProject.DataAccess.Repositories.Abstracts;
 using MovieProject.Model.Dtos.Movies;
 using MovieProject.Model.Entities;
@@ -15,17 +16,22 @@ public sealed class MovieService : IMovieService
     private readonly IMapper _mapper;
     private readonly ICloudinaryHelper _cloudinaryHelper;
     private readonly MovieBusinessRules _businessRules;
+    private readonly IRedisCacheService _cache;
 
-    public MovieService(IMovieRepository movieRepository, IMapper mapper, ICloudinaryHelper cloudinaryHelper, MovieBusinessRules businessRules)
+    public MovieService(IMovieRepository movieRepository, IMapper mapper, ICloudinaryHelper cloudinaryHelper, MovieBusinessRules businessRules, IRedisCacheService cache)
     {
         _movieRepository = movieRepository;
         _mapper = mapper;
         _cloudinaryHelper = cloudinaryHelper;
         _businessRules = businessRules;
+        _cache = cache;
     }
 
     public async Task<string> AddAsync(MovieAddRequestDto dto, CancellationToken cancellationToken = default)
     {
+        await _cache.RemoveDataAsync(RedisMovieKey.MovieListKey);
+
+
         await _businessRules.MovieNameMutBeUniqueAsync(dto.Name);
 
         Movie movie = _mapper.Map<Movie>(dto);
@@ -54,10 +60,21 @@ public sealed class MovieService : IMovieService
 
     public async Task<List<MovieResponseDto>> GetAllAsync(CancellationToken cancellationToken = default)
     {
+        var cachedMovies = await _cache.GetDataAsync<List<MovieResponseDto>>(RedisMovieKey.MovieListKey);
+
+        if(cachedMovies != null)
+        {
+            return cachedMovies;
+        }
+
+
+
         List<Movie> movies = await _movieRepository
             .GetAllAsync(enableTracking: false, cancellationToken: cancellationToken);
 
         var movieResponseDtos = _mapper.Map<List<MovieResponseDto>>(movies);
+
+        await _cache.SetDataAsync(RedisMovieKey.MovieListKey,movieResponseDtos);
 
         return movieResponseDtos;
     }
