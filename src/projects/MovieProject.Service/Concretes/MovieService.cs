@@ -10,6 +10,7 @@ using MovieProject.Service.Helpers;
 
 namespace MovieProject.Service.Concretes;
 
+// Movies['movie_list','movie_id']
 public sealed class MovieService : IMovieService
 {
     private readonly IMovieRepository _movieRepository;
@@ -50,6 +51,11 @@ public sealed class MovieService : IMovieService
 
     public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)
     {
+
+        await _cache.RemoveDataAsync(RedisMovieKey.MovieListKey);
+
+        await _cache.RemoveDataAsync(RedisMovieKey.GetByIdKey(id));
+
         await _businessRules.MovieIsPresentAsync(id);
 
         Movie movie = await _movieRepository.GetAsync(filter:x=>x.Id==id,include:false,cancellationToken:cancellationToken);
@@ -121,17 +127,33 @@ public sealed class MovieService : IMovieService
 
     public async Task<MovieResponseDto?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
+        string cacheKey = RedisMovieKey.GetByIdKey(id);
+
+        var cahcedData = await _cache.GetDataAsync<MovieResponseDto>(cacheKey);
+
+        if(cahcedData != null)
+        {
+            return cahcedData;
+        }
+
+
         await _businessRules.MovieIsPresentAsync(id);
 
         Movie movie = await _movieRepository.GetAsync(filter: x=>x.Id==id,enableTracking:false,cancellationToken:cancellationToken);
 
         MovieResponseDto movieResponseDto = _mapper.Map<MovieResponseDto>(movie);
 
+        await _cache.SetDataAsync<MovieResponseDto>(cacheKey,movieResponseDto);
+
         return movieResponseDto;
     }
 
     public async Task UpdateAsync(MovieUpdateRequestDto dto, CancellationToken cancellationToken = default)
     {
+        await _cache.RemoveDataAsync(RedisMovieKey.MovieListKey);
+
+        await _cache.RemoveDataAsync(RedisMovieKey.GetByIdKey(dto.Id));
+
         await _businessRules.MovieIsPresentAsync(dto.Id);
         // Movie movie = await _movieRepository.GetAsync(filter: x => x.Id == dto.Id, include: false, cancellationToken: cancellationToken);
 
