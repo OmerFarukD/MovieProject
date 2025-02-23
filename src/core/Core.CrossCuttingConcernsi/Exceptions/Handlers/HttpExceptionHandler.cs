@@ -1,6 +1,7 @@
 ﻿using Core.CrossCuttingConcerns.Exceptions.Extensions;
 using Core.CrossCuttingConcerns.Exceptions.HttpProblemDetails;
 using Core.CrossCuttingConcerns.Exceptions.Types;
+using Core.CrossCuttingConcerns.Exceptions.Types.Validation;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -36,6 +37,13 @@ public sealed class HttpExceptionHandler : ExceptionHandler
     {
         Response.StatusCode = StatusCodes.Status500InternalServerError;
         string details = new ServerErrorProblemDetails().AsJson();
+        return Response.WriteAsync(details);
+    }
+
+    protected override Task HandleException(ValidationException exception)
+    {
+        Response.StatusCode = StatusCodes.Status400BadRequest;
+        string details = new ValidationProblemDetails(exception.Errors).AsJson();
         return Response.WriteAsync(details);
     }
 }

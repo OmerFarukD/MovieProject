@@ -1,4 +1,5 @@
 ﻿using Core.CrossCuttingConcerns.Exceptions.Types;
+using Core.CrossCuttingConcerns.Exceptions.Types.Validation;
 
 namespace Core.CrossCuttingConcerns.Exceptions.Handlers;
 
@@ -11,6 +12,7 @@ public abstract class ExceptionHandler
         {
             BusinessException businessException => HandleException(businessException),
             NotFoundException notFoundException => HandleException(notFoundException),
+            ValidationException validationException => HandleException(validationException),
             _ => HandleException(exception)
         };
     }
@@ -21,6 +23,9 @@ public abstract class ExceptionHandler
     protected abstract Task HandleException(BusinessException businessException);
 
     protected abstract Task HandleException(Exception exception);
+
+
+    protected abstract Task HandleException(ValidationException exception);
 }
 
 

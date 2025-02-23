@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using FluentValidation;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MovieProject.Service.Abstracts;
 using MovieProject.Service.BusinessRules.Artists;
@@ -21,8 +22,11 @@ namespace MovieProject.Service;
 
 public static class ServiceRegistration
 {
+    // Password: ['Parola minimum 6 haneli olmalıdır.', 'Parola boş olamaz.']
+    public static IServiceCollection AddServiceDependencies(this IServiceCollection services) {
 
-    public static IServiceCollection AddServiceDependencies(this IServiceCollection services) { 
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
         services.AddScoped<IMovieService, MovieService>();
         services.AddScoped<ICloudinaryHelper, CloudinaryHelper>();
 
