@@ -24,49 +24,47 @@ public class CategoriesController : ControllerBase
 
     // property Injection 
     //public ICategoryService CategoryService { get; set; }
-
     [HttpPost("add")]
-    [Authorize(Roles = "Admin")]
-    public IActionResult Add([FromBody] CategoryAddRequestDto dto)
+    public async Task<IActionResult> Add([FromBody] CategoryAddRequestDto dto)
     { 
-            _categoryService.Add(dto);
+            await _categoryService.AddAsync(dto);
             return Ok("Kategori başarıyla eklendi.");
       
     }
 
 
     [HttpGet("getall")]
-    public IActionResult GetAll()
+    public async Task<IActionResult> GetAll()
     {
-        var response = _categoryService.GetAll();
+        var response = await _categoryService.GetAllAsync();
         return Ok(response);
     }
 
     [HttpGet("getbyid")]
     
-    public IActionResult GetById(int id)
+    public async Task<IActionResult> GetById(int id)
     {
    
-            var response = _categoryService.GetById(id);
+            var response = await _categoryService.GetByIdAsync(id);
             return Ok(response);
         
     }
 
     [HttpPut("update")]
     [Authorize(Roles = "Admin")]
-    public IActionResult Update(CategoryUpdateRequestDto dto)
+    public async Task<IActionResult> Update(CategoryUpdateRequestDto dto)
     {
 
 
-            _categoryService.Update(dto);
+            await _categoryService.UpdateAsync(dto);
             return Ok("Kategori güncellendi.");
     }
 
     [HttpDelete("delete")]
     [Authorize(Roles = "Admin")]
-    public IActionResult Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
-            _categoryService.Delete(id);
+            await _categoryService.DeleteAsync(id);
             return Ok("Kategori silindi.");
     }
 

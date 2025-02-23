@@ -1,12 +1,10 @@
-﻿using Core.CrossCuttingConcerns.Exceptions;
-using MovieProject.DataAccess.Contexts;
+﻿using Core.CrossCuttingConcerns.Validation;
+using FluentValidation;
 using MovieProject.DataAccess.Repositories.Abstracts;
-using MovieProject.DataAccess.Repositories.Concretes;
 using MovieProject.Model.Dtos.Categories;
 using MovieProject.Model.Entities;
 using MovieProject.Service.Abstracts;
 using MovieProject.Service.BusinessRules.Categories;
-using MovieProject.Service.Constants.Categories;
 using MovieProject.Service.Mappers.Categories;
 namespace MovieProject.Service.Concretes;
 
@@ -15,57 +13,59 @@ public sealed class CategoryService : ICategoryService
     private readonly ICategoryRepository _categoryRepository;
     private readonly ICategoryMapper _categoryMapper;
     private readonly CategoryBusinessRules _businessRules;
+    private readonly IValidator<CategoryAddRequestDto> _categoryAddValidator;
 
-    public CategoryService(ICategoryRepository categoryRepository, ICategoryMapper categoryMapper, CategoryBusinessRules businessRules)
+    public CategoryService(ICategoryRepository categoryRepository, ICategoryMapper categoryMapper, CategoryBusinessRules businessRules, IValidator<CategoryAddRequestDto> categoryAddValidator)
     {
         _categoryRepository = categoryRepository;
         _categoryMapper = categoryMapper;
         _businessRules = businessRules;
+        _categoryAddValidator = categoryAddValidator;
     }
 
-    public void Add(CategoryAddRequestDto dto)
+    public async Task AddAsync(CategoryAddRequestDto dto)
     {
 
         // Validasyon kuralları
-
+        await ValidationTool.ValidateAsync(_categoryAddValidator,dto);
         // iş kuralı
         _businessRules.CategoryNameMustBeUnique(dto.Name);
 
         Category category = _categoryMapper.ConvertToEntity(dto);
-        _categoryRepository.Add(category);
+       await _categoryRepository.AddAsync(category);
     }
 
-    public void Delete(int id)
+    public async Task DeleteAsync(int id)
     {
         _businessRules.CategoryIsPresent(id);
 
-        var category = _categoryRepository.GetById(id);
-        _categoryRepository.Delete(category!);
+        var category = await _categoryRepository.GetAsync(x=>x.Id==id);
+        await _categoryRepository.DeleteAsync(category!);
     }
 
-    public List<CategoryResponseDto> GetAll()
+    public async Task<List<CategoryResponseDto>> GetAllAsync()
     {
-        List<Category> categories = _categoryRepository.GetAll();
+        List<Category> categories = await _categoryRepository.GetAllAsync();
         List<CategoryResponseDto> responses = _categoryMapper.ConvertToResponseList(categories);
         return responses;
     }
 
-    public CategoryResponseDto? GetById(int id)
+    public async Task<CategoryResponseDto?> GetByIdAsync(int id)
     {
         _businessRules.CategoryIsPresent(id);
-        Category? category = _categoryRepository.GetById(id);
-      
+        Category? category = await _categoryRepository.GetAsync(x => x.Id == id);
+
 
 
         CategoryResponseDto categoryResponseDto = _categoryMapper.ConvertToResponse(category);
         return categoryResponseDto;
     }
 
-    public void Update(CategoryUpdateRequestDto dto)
+    public async Task UpdateAsync(CategoryUpdateRequestDto dto)
     {
         _businessRules.CategoryIsPresent(dto.Id);
 
-        Category? category = _categoryRepository.GetById(dto.Id);
+        Category? category = await _categoryRepository.GetAsync(x => x.Id == dto.Id);
         category.Name = dto.Name;
 
         _categoryRepository.Update(category);

@@ -4,12 +4,12 @@ namespace MovieProject.Service.Abstracts;
 
 public interface ICategoryService
 {
-    void Add(CategoryAddRequestDto dto);
-    void Update(CategoryUpdateRequestDto dto);
+    Task AddAsync(CategoryAddRequestDto dto);
+    Task UpdateAsync(CategoryUpdateRequestDto dto);
 
-    List<CategoryResponseDto> GetAll();
+    Task<List<CategoryResponseDto>> GetAllAsync();
 
-    CategoryResponseDto? GetById(int id);
+    Task<CategoryResponseDto?> GetByIdAsync(int id);
 
-    void Delete(int id);
+    Task DeleteAsync(int id);
 }
