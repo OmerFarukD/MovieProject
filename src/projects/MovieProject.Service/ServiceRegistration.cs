@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MovieProject.Service.Abstracts;
 using MovieProject.Service.BusinessRules.Artists;
 using MovieProject.Service.BusinessRules.Categories;
+using MovieProject.Service.BusinessRules.Directors;
 using MovieProject.Service.BusinessRules.Movies;
 using MovieProject.Service.BusinessRules.Users;
 using MovieProject.Service.Concretes;
@@ -24,9 +25,7 @@ public static class ServiceRegistration
     public static IServiceCollection AddServiceDependencies(this IServiceCollection services) { 
         services.AddScoped<IMovieService, MovieService>();
         services.AddScoped<ICloudinaryHelper, CloudinaryHelper>();
-        services.AddScoped<CategoryBusinessRules>();
-        services.AddScoped<MovieBusinessRules>();
-        services.AddScoped<ArtistBusinessRules>();
+
         services.AddScoped<IArtistService, ArtistService>();
         services.AddScoped<ICategoryService, CategoryService>();
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
@@ -35,7 +34,16 @@ public static class ServiceRegistration
         services.AddScoped<IUserService,UserService>();
         services.AddScoped<IAuthService, AuthService >();
         services.AddScoped<IJwtService,JwtService>();
+
+        services.AddScoped<IDirectorService, DirectorService>();
+        
+        
         services.AddScoped<UserBusinessRules>();
+        services.AddScoped<CategoryBusinessRules>();
+        services.AddScoped<MovieBusinessRules>();
+        services.AddScoped<ArtistBusinessRules>();
+        services.AddScoped<DirectorBusinessRules>();
+
 
         return services;
     }

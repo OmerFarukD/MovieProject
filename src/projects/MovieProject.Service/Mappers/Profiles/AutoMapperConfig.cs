@@ -2,12 +2,11 @@
 using Core.Security.Entities;
 using MovieProject.Model.Dtos.Artists;
 using MovieProject.Model.Dtos.Categories;
+using MovieProject.Model.Dtos.Directors;
 using MovieProject.Model.Dtos.Movies;
 using MovieProject.Model.Dtos.Users;
 using MovieProject.Model.Entities;
-
 namespace MovieProject.Service.Mappers.Profiles;
-
 public sealed class AutoMapperConfig : Profile
 {
 
@@ -31,5 +30,11 @@ public sealed class AutoMapperConfig : Profile
         CreateMap<User, UserResponseDto>().ReverseMap();
         CreateMap<RegisterRequestDto, User>();
         CreateMap<UserUpdateRequestDto, User>();
+
+
+
+        CreateMap<Director, DirectorResponseDto>();
+        CreateMap<DirectorAddRequestDto,Director>();
+        CreateMap<DirectorUpdateRequestDto, Director>();
     }
 }
