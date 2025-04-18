@@ -46,7 +46,7 @@ public static class ServiceRegistration
         services.AddScoped<CategoryBusinessRules>();
         services.AddScoped<MovieBusinessRules>();
         services.AddScoped<ArtistBusinessRules>();
-        services.AddScoped<DirectorBusinessRules>();
+        services.AddScoped<IDirectorBusinessRules,DirectorBusinessRules>();
 
 
         return services;

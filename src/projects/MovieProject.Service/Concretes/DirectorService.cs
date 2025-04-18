@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.Identity.Client;
 using MovieProject.DataAccess.Repositories.Abstracts;
 using MovieProject.Model.Dtos.Directors;
 using MovieProject.Model.Entities;
@@ -16,9 +15,9 @@ public sealed class DirectorService : IDirectorService
     private readonly IMapper _mapper;
     private readonly IDirectorRepository _directorRepository;
     private readonly ICloudinaryHelper _cloudinaryHelper;
-    private readonly DirectorBusinessRules _directorBusinessRules;
+    private readonly IDirectorBusinessRules _directorBusinessRules;
 
-    public DirectorService(IMapper mapper, IDirectorRepository directorRepository, ICloudinaryHelper cloudinaryHelper, DirectorBusinessRules directorBusinessRules)
+    public DirectorService(IMapper mapper, IDirectorRepository directorRepository, ICloudinaryHelper cloudinaryHelper, IDirectorBusinessRules directorBusinessRules)
     {
         _mapper = mapper;
         _directorRepository = directorRepository;
@@ -39,8 +38,6 @@ public sealed class DirectorService : IDirectorService
 
 
         return DirectorMessages.DirectorAdded;
-
-
     }
 
     public async Task<string> DeleteAsync(long id)

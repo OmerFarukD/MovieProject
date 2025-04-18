@@ -4,7 +4,7 @@ using MovieProject.Service.Constants.Directors;
 
 namespace MovieProject.Service.BusinessRules.Directors;
 // ctrl + r +g
-public sealed class DirectorBusinessRules
+public  class DirectorBusinessRules : IDirectorBusinessRules
 {
     private readonly IDirectorRepository _directorRepository;
 

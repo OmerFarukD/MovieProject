@@ -22,7 +22,9 @@ public sealed class AutoMapperConfig : Profile
         CreateMap<Movie, MovieResponseDto>();
 
 
-        CreateMap<Artist, ArtistResponseDto>();
+        CreateMap<Artist, ArtistResponseDto>().ForMember(x=>x.FullName, opt=>
+            opt.MapFrom(x=> $"{x.Name} {x.Surname}")
+            );
         CreateMap<ArtistAddRequestDto, Artist>();
         CreateMap<ArtistUpdateRequestDto, Artist>();
 

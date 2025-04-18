@@ -4,22 +4,23 @@ using Core.Security;
 using Core.Security.Encryption;
 using Core.Security.JWT;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 using MovieProject.DataAccess;
-using MovieProject.DataAccess.Contexts;
-using MovieProject.DataAccess.Repositories.Abstracts;
-using MovieProject.DataAccess.Repositories.Concretes;
 using MovieProject.Service;
-using MovieProject.Service.Abstracts;
-using MovieProject.Service.BusinessRules.Artists;
-using MovieProject.Service.BusinessRules.Categories;
-using MovieProject.Service.BusinessRules.Movies;
-using MovieProject.Service.Concretes;
 using MovieProject.Service.Helpers;
-using MovieProject.Service.Mappers.Categories;
-using MovieProject.Service.Mappers.Profiles;
 
 var builder = WebApplication.CreateBuilder(args);
+
+string reactCors = "ReactCors";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(reactCors, policy =>
+    {
+        policy.WithOrigins("http://localhost:3000")
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+    });
+});
 
 // Add services to the container.
 // Dependency Injection Lifecycle (Yaþam Döngüsü)
@@ -80,7 +81,7 @@ if (app.Environment.IsDevelopment())
 }
 
 
-
+app.UseCors(reactCors);
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
