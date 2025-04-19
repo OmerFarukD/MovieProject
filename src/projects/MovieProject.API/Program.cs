@@ -16,17 +16,17 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy(reactCors, policy =>
     {
-        policy.WithOrigins("http://localhost:3000")
+        policy.WithOrigins("http://localhost:3001")
         .AllowAnyHeader()
         .AllowAnyMethod();
     });
 });
 
 // Add services to the container.
-// Dependency Injection Lifecycle (Yaþam Döngüsü)
-// AddScopped() : Uygulama boyunca 1 tane nesne üretir. Nesnenin ömrü ise istek cevaba dönene kadar.
-// AddSingleton() : Uygulama boyunca 1 tane nesne üretir.
-// AddTransient(): Uygulamada her istek için ayrý bir nesne oluþturur.
+// Dependency Injection Lifecycle (Yaï¿½am Dï¿½ngï¿½sï¿½)
+// AddScopped() : Uygulama boyunca 1 tane nesne ï¿½retir. Nesnenin ï¿½mrï¿½ ise istek cevaba dï¿½nene kadar.
+// AddSingleton() : Uygulama boyunca 1 tane nesne ï¿½retir.
+// AddTransient(): Uygulamada her istek iï¿½in ayrï¿½ bir nesne oluï¿½turur.
 
 builder.Services.AddHttpContextAccessor();
 
