@@ -17,5 +17,7 @@ public sealed class ArtistConfiguration : IEntityTypeConfiguration<Artist>
         builder.HasMany(x=>x.MovieArtists);
 
 
+
+
     }
 }

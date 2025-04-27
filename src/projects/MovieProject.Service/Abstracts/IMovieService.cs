@@ -44,4 +44,7 @@ public interface IMovieService
 
     // Elastic
     Task<List<MovieResponseDto>> GetAllByIsActiveAsync(bool active, CancellationToken cancellationToken = default);
+    
+    
+    Task<MovieDetailDto> GetDetailAsync(Guid id, CancellationToken cancellationToken = default);
 }

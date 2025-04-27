@@ -1,0 +1,22 @@
+﻿namespace MovieProject.Model.Dtos.Movies;
+
+public sealed record MovieDetailDto
+{
+    public Guid Id { get; init; }
+    public string? Name { get; init; }
+
+    public string? Description { get; init; }
+
+    public double IMDB { get; init; }
+
+    public DateTime PublishDate { get; init; }
+
+    public string ImageUrl { get; init; }
+
+    public string? CategoryName { get; init; }
+
+    public bool IsActive { get; init; }
+    public string? DirectorName { get; init; }
+
+    public HashSet<string> Players { get; set; }
+}

@@ -125,6 +125,18 @@ public sealed class MovieService : IMovieService
         return movieResponseDtos;
     }
 
+    public async Task<MovieDetailDto> GetDetailAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        await _businessRules.MovieIsPresentAsync(id);
+
+        Movie movie = await _movieRepository.GetAsync(filter: x=> x.Id==id, enableTracking:false, cancellationToken: cancellationToken);
+
+        MovieDetailDto dto = _mapper.Map<MovieDetailDto>(movie);
+
+        return dto;
+
+    }
+
     public async Task<MovieResponseDto?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
         string cacheKey = RedisMovieKey.GetByIdKey(id);

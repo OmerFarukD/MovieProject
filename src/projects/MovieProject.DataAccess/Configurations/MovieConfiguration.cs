@@ -30,6 +30,7 @@ namespace MovieProject.DataAccess.Configurations
 
             builder.Navigation(x => x.Director).AutoInclude();
             builder.Navigation(x => x.Category).AutoInclude();
+            builder.Navigation(x => x.MovieArtists).AutoInclude();
         }
     }
 }

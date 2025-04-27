@@ -18,7 +18,7 @@ public class MoviesController : ControllerBase
 
 
     [HttpPost("Add")]
-    [Authorize(Roles = "Admin")]
+   // [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Add(MovieAddRequestDto dto)
     {
 
@@ -73,4 +73,13 @@ public class MoviesController : ControllerBase
     public async Task<IActionResult> GetAllByImdbRange(double min, double max)
         => Ok(await _movieService.GetAllByImdbRangeAsync(min,max));
 
+
+    [HttpGet("getdetails")]
+    public async Task<IActionResult> GetDetails(Guid id)
+    {
+        var response = await _movieService.GetDetailAsync(id);
+
+        return Ok(response);
+    }
+    
 }

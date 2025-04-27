@@ -20,6 +20,9 @@ public sealed class AutoMapperConfig : Profile
         CreateMap<MovieUpdateRequestDto,Movie>();
         CreateMap<MovieAddRequestDto, Movie>();
         CreateMap<Movie, MovieResponseDto>();
+        CreateMap<Movie, MovieDetailDto>().ForMember(x => x.Players, opt =>
+            opt.MapFrom(c => c.MovieArtists.Select(x =>$"{x.Artist.Name} {x.Artist.Surname}" ).ToHashSet())
+        );
 
 
         CreateMap<Artist, ArtistResponseDto>().ForMember(x=>x.FullName, opt=>

@@ -16,5 +16,9 @@ public sealed class MovieArtistConfiguration : IEntityTypeConfiguration<MovieArt
 
         builder.HasOne(x => x.Movie).WithMany(y => y.MovieArtists)
             .HasForeignKey(z => z.MovieId);
+
+
+
+        builder.Navigation(x => x.Artist).AutoInclude();
     }
 }
